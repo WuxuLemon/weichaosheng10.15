@@ -3,6 +3,7 @@
   import { reactive, ref, onMounted } from 'vue';
   import DoctorHeader from '../../components/DoctorHeader.vue';
   import DoctorSidebar from '../../components/DoctorSidebar.vue';
+  import { getMediaUrl } from '../../utils/media.js';
 
   const props = defineProps({});
 
@@ -10,31 +11,31 @@
 
   // 最近浏览的数据（对接video文件夹视频）
   const recentViews = ref([
-    { id: '250619162', name: '黄仁丰_250816015.mp4.mp4', date: '2025-9-27', videoPath: '/video/黄仁丰_250816015.mp4.mp4' },
-    { id: '250705047', name: '郑廷洲_250705123.mp4.mp4', date: '2025-9-26', videoPath: '/video/郑廷洲_250705123.mp4.mp4' },
-    { id: '250605040', name: '马万华_250605108.mp4.mp4', date: '2025-9-25', videoPath: '/video/马万华_250605108.mp4.mp4' },
-    { id: '240916100', name: '范泽莉_250531242.mp4.mp4', date: '2025-9-24', videoPath: '/video/范泽莉_250531242.mp4.mp4' },
-    { id: '240910084', name: '黄益鹏_250527033.mp4.mp4', date: '2025-9-23', videoPath: '/video/黄益鹏_250527033.mp4.mp4' }
+    { id: '250619162', name: '黄仁丰_250816015.mp4.mp4', date: '2025-9-27', videoPath: getMediaUrl('/video/黄仁丰_250816015.mp4.mp4') },
+    { id: '250705047', name: '郑廷洲_250705123.mp4.mp4', date: '2025-9-26', videoPath: getMediaUrl('/video/郑廷洲_250705123.mp4.mp4') },
+    { id: '250605040', name: '马万华_250605108.mp4.mp4', date: '2025-9-25', videoPath: getMediaUrl('/video/马万华_250605108.mp4.mp4') },
+    { id: '240916100', name: '范泽莉_250531242.mp4.mp4', date: '2025-9-24', videoPath: getMediaUrl('/video/范泽莉_250531242.mp4.mp4') },
+    { id: '240910084', name: '黄益鹏_250527033.mp4.mp4', date: '2025-9-23', videoPath: getMediaUrl('/video/黄益鹏_250527033.mp4.mp4') }
   ]);
 
   // 我的收藏数据（对接analyse文件夹图片）
   const myFavorites = ref([
-    { id: 'FAV001', name: '黄仁丰_250816015.mp4', date: '2025-9-27', image: '/analyse/黄仁丰_250816015.mp4.png' },
-    { id: 'FAV002', name: '郑廷洲_250705123.mp4', date: '2025-9-26', image: '/analyse/郑廷洲_250705123.mp4.png' },
-    { id: 'FAV003', name: '马万华_250605108.mp4', date: '2025-9-25', image: '/analyse/马万华_250605108.mp4.png' },
-    { id: 'FAV004', name: '范泽莉_250531242.mp4', date: '2025-9-24', image: '/analyse/范泽莉_250531242.mp4.png' }
+    { id: 'FAV001', name: '黄仁丰_250816015.mp4', date: '2025-9-27', image: getMediaUrl('/analyse/黄仁丰_250816015.mp4.png') },
+    { id: 'FAV002', name: '郑廷洲_250705123.mp4', date: '2025-9-26', image: getMediaUrl('/analyse/郑廷洲_250705123.mp4.png') },
+    { id: 'FAV003', name: '马万华_250605108.mp4', date: '2025-9-25', image: getMediaUrl('/analyse/马万华_250605108.mp4.png') },
+    { id: 'FAV004', name: '范泽莉_250531242.mp4', date: '2025-9-24', image: getMediaUrl('/analyse/范泽莉_250531242.mp4.png') }
   ]);
 
   // 我的图像数据（对接original文件夹图片）
   const myImages = ref([
-    { id: 'IMG001', name: '0044_weidi1_1165', date: '2025-9-27', image: '/original/0044_weidi1_1165.jpg' },
-    { id: 'IMG002', name: '0044_weidi1_1166', date: '2025-9-27', image: '/original/0044_weidi1_1166.jpg' },
-    { id: 'IMG003', name: '0044_weidi1_379', date: '2025-9-26', image: '/original/0044_weidi1_379.jpg' },
-    { id: 'IMG004', name: '0044_weidi1_380', date: '2025-9-26', image: '/original/0044_weidi1_380.jpg' },
-    { id: 'IMG005', name: '0044_weidi2_379', date: '2025-9-25', image: '/original/0044_weidi2_379.jpg' },
-    { id: 'IMG006', name: '0044_weidi2_380', date: '2025-9-25', image: '/original/0044_weidi2_380.jpg' },
-    { id: 'IMG007', name: '0044_weidou_2049', date: '2025-9-24', image: '/original/0044_weidou_2049.jpg' },
-    { id: 'IMG008', name: '0044_weidou_248', date: '2025-9-23', image: '/original/0044_weidou_248.jpg' }
+    { id: 'IMG001', name: '0044_weidi1_1165', date: '2025-9-27', image: getMediaUrl('/original/0044_weidi1_1165.jpg') },
+    { id: 'IMG002', name: '0044_weidi1_1166', date: '2025-9-27', image: getMediaUrl('/original/0044_weidi1_1166.jpg') },
+    { id: 'IMG003', name: '0044_weidi1_379', date: '2025-9-26', image: getMediaUrl('/original/0044_weidi1_379.jpg') },
+    { id: 'IMG004', name: '0044_weidi1_380', date: '2025-9-26', image: getMediaUrl('/original/0044_weidi1_380.jpg') },
+    { id: 'IMG005', name: '0044_weidi2_379', date: '2025-9-25', image: getMediaUrl('/original/0044_weidi2_379.jpg') },
+    { id: 'IMG006', name: '0044_weidi2_380', date: '2025-9-25', image: getMediaUrl('/original/0044_weidi2_380.jpg') },
+    { id: 'IMG007', name: '0044_weidou_2049', date: '2025-9-24', image: getMediaUrl('/original/0044_weidou_2049.jpg') },
+    { id: 'IMG008', name: '0044_weidou_248', date: '2025-9-23', image: getMediaUrl('/original/0044_weidou_248.jpg') }
   ]);
 
   // 显示/隐藏详细列表的标志

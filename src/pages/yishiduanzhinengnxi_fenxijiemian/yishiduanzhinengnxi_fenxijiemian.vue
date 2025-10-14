@@ -3,6 +3,7 @@
   import { reactive, ref, onMounted, computed, onUnmounted } from 'vue';
   import DoctorHeader from '../../components/DoctorHeader.vue';
   import DoctorSidebar from '../../components/DoctorSidebar.vue';
+  import { getMediaUrl } from '../../utils/media.js';
 
   const props = defineProps({});
 
@@ -16,7 +17,7 @@
   });
   
   // 当前分析图片（对接analyse文件夹）
-  const currentAnalysisImage = ref('/analyse/黄仁丰_250816015.mp4.png');
+  const currentAnalysisImage = ref(getMediaUrl('/analyse/黄仁丰_250816015.mp4.png'));
 
   // 视频列表（对接video文件夹真实视频）
   const videoList = ref([
@@ -96,7 +97,7 @@
     currentVideo.value = video;
     // 更新对应的分析图片路径
     const imageName = video.name.replace('.mp4.mp4', '.mp4.png');
-    currentAnalysisImage.value = `/analyse/${imageName}`;
+    currentAnalysisImage.value = getMediaUrl(`/analyse/${imageName}`);
     // 切换后加载模拟数据
     loadMockData();
   };

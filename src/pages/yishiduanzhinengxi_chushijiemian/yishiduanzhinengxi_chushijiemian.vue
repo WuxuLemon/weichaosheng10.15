@@ -3,6 +3,7 @@
   import { reactive, ref } from 'vue';
   import DoctorHeader from '../../components/DoctorHeader.vue';
   import DoctorSidebar from '../../components/DoctorSidebar.vue';
+  import { getMediaUrl } from '../../utils/media.js';
 
   const props = defineProps({});
 
@@ -10,7 +11,7 @@
 
   // 当前播放的视频
   const currentVideo = ref('黄仁丰_250816015.mp4.mp4');
-  const videoPath = ref('/video/黄仁丰_250816015.mp4.mp4');
+  const videoPath = ref(getMediaUrl('/video/黄仁丰_250816015.mp4.mp4'));
   const isPlaying = ref(false);
   const isAnalyzing = ref(false);
 
@@ -26,7 +27,7 @@
   // 播放视频
   const playVideo = (video) => {
     currentVideo.value = video.name;
-    videoPath.value = `/video/${video.name}`;
+    videoPath.value = getMediaUrl(`/video/${video.name}`);
     isPlaying.value = true;
     // 重新加载视频
     const videoElement = document.querySelector('.video-player');
@@ -84,7 +85,7 @@
     currentVideoIndex.value = (currentVideoIndex.value - 1 + videoList.value.length) % videoList.value.length;
     const prevVid = videoList.value[currentVideoIndex.value];
     currentVideo.value = prevVid.name;
-    videoPath.value = `/video/${prevVid.name}`;
+    videoPath.value = getMediaUrl(`/video/${prevVid.name}`);
     const video = document.querySelector('.video-player');
     if (video) {
       video.load();
@@ -98,7 +99,7 @@
     currentVideoIndex.value = (currentVideoIndex.value + 1) % videoList.value.length;
     const nextVid = videoList.value[currentVideoIndex.value];
     currentVideo.value = nextVid.name;
-    videoPath.value = `/video/${nextVid.name}`;
+    videoPath.value = getMediaUrl(`/video/${nextVid.name}`);
     // 更新视频源并播放
     const video = document.querySelector('.video-player');
     if (video) {

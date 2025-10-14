@@ -7,9 +7,11 @@
     "build": "vite build",
     "preview": "vite preview",
     "lint": "eslint . --ext .vue,.js,.jsx,.cjs,.mjs --fix --ignore-path .gitignore",
-    "format": "prettier --write src/"
+    "format": "prettier --write src/",
+    "upload:blob": "node scripts/upload-to-blob.js"
   },
   "dependencies": {
+    "@vercel/blob": "^2.0.0",
     "vue": "^3.3.4",
     "vue-router": "^4.2.4"
   },
@@ -19,8 +21,8 @@
     "@vue/eslint-config-prettier": "^8.0.0",
     "eslint": "^8.49.0",
     "eslint-plugin-vue": "^9.17.0",
-    "prettier": "^3.0.3",
     "less": "^4.2.0",
+    "prettier": "^3.0.3",
     "sass": "^1.69.3",
     "vite": "^4.4.9"
   }

@@ -3,6 +3,7 @@
   import { ref } from 'vue';
   import PatientHeader from '../../components/PatientHeader.vue';
   import PatientSidebar from '../../components/PatientSidebar.vue';
+  import { getMediaUrl } from '../../utils/media.js';
 
   const props = defineProps({});
 
@@ -49,10 +50,10 @@
       diagnosis: '胃大部分切除术后，残存胃壁未见异常肿块，吻合口未见狭窄',
       diagnosisDetail: '上腹部超声所见，警惕腹内疝可能',
       result: '患者空腹饮用胃肠超声造影剂充盈后检查：\n       胃大部分切除术后，超声造影剂进入贲门顺畅，食管下段近贲门入口处结构正常，胃充盈尚好，贲门未见明显返流，胃-空肠吻合口未见狭窄，残存胃壁层次清晰，粘膜面稍毛糙，皱襞略肿胀，胃腔内未见明显肿块及溃疡灶回声，动态观察，蠕动尚好，吻合口见造影剂往返流动。上腹部见肠系膜血管走形呈半螺旋状，似见条状低回声，部分小肠袢呈U型。',
-      image: '/original/0044_weidi1_1165.jpg',
+      image: getMediaUrl('/original/0044_weidi1_1165.jpg'),
       ultraSoundImages: [
-        '/original/0044_weidi1_1165.jpg',
-        '/original/0044_weidi1_1166.jpg'
+        getMediaUrl('/original/0044_weidi1_1165.jpg'),
+        getMediaUrl('/original/0044_weidi1_1166.jpg')
       ]
     },
     {
@@ -63,10 +64,10 @@
       diagnosis: '胃Ca伴胃窦腔狭窄，周围多发转移性淋巴结',
       diagnosisDetail: '肝脏多发占位病灶，结合超声造影，考虑转移性肝Ca\n肝门静脉右支管腔内低回声团块，结合超声造影，考虑Ca栓',
       result: '患者空腹饮用胃肠超声造影剂充盈后检查：\n       超声造影剂进入贲门顺畅，食管下段近贲门入口处、胃形态结构正常，贲门未见明显返流，胃角至胃窦处胃壁不规则增厚，较厚约21mm，累及长度约87mm，胃壁层次不清，浆膜层与周围组织界限不清，蠕动明显减弱，胃窦腔狭窄，仅少量造影剂通过，十二指肠充盈欠佳。周围见多个低回声结节，较大约18*15mm，边界尚清，CDFI内见点状血流信号；其余胃壁层次清晰，粘膜面稍毛糙，皱襞略肿胀。\n\n经静脉超声造影观察：胃壁不规则肿块动脉期呈高增强，静脉期廓清呈低增强。肝内不均质回声团块呈动脉期高增强，门脉期逐渐廓清呈低增强，延迟期肝脏扫查见多个低增强病灶，较大约28*26mm。门静脉右支管腔内低回声团见持续增强。',
-      image: '/original/0044_weidi1_379.jpg',
+      image: getMediaUrl('/original/0044_weidi1_379.jpg'),
       ultraSoundImages: [
-        '/original/0044_weidi1_379.jpg',
-        '/original/0044_weidi1_380.jpg'
+        getMediaUrl('/original/0044_weidi1_379.jpg'),
+        getMediaUrl('/original/0044_weidi1_380.jpg')
       ]
     },
     {
@@ -77,22 +78,22 @@
       diagnosis: '慢性浅表性胃炎改变',
       diagnosisDetail: '',
       result: '患者空腹饮用胃肠超声造影剂充盈后检查：\n       超声造影剂进入贲门顺畅，食管下段近贲门入口处、胃形态结构正常，胃充盈后胃下缘位于脐下方62mm，贲门未见明显返流，胃壁层次清晰，粘膜面稍毛糙，皱襞略肿胀，胃腔内未见明显肿块及溃疡灶回声，动态观察，蠕动良好，幽门未见明显返流。十二指肠球部、降部、水平部形态结构正常，肠壁未见异常肿块及溃疡灶回声。',
-      image: '/original/0044_weidi1_381.jpg',
+      image: getMediaUrl('/original/0044_weidi1_381.jpg'),
       ultraSoundImages: [
-        '/original/0044_weidi1_381.jpg',
-        '/original/0044_weidi1_382.jpg'
+        getMediaUrl('/original/0044_weidi1_381.jpg'),
+        getMediaUrl('/original/0044_weidi1_382.jpg')
       ]
     }
   ]);
 
   // 我的图像数据（超声图像）
   const myImages = ref([
-    { id: 'IMG001', name: '2025-10-07 超声图像', date: '2025-10-07', image: '/original/0044_weidi1_1165.jpg' },
-    { id: 'IMG002', name: '2025-10-07 超声图像', date: '2025-10-07', image: '/original/0044_weidi1_1166.jpg' },
-    { id: 'IMG003', name: '2025-06-05 超声图像', date: '2025-06-05', image: '/original/0044_weidi1_379.jpg' },
-    { id: 'IMG004', name: '2025-06-05 超声图像', date: '2025-06-05', image: '/original/0044_weidi1_380.jpg' },
-    { id: 'IMG005', name: '2025-02-20 超声图像', date: '2025-02-20', image: '/original/0044_weidi1_381.jpg' },
-    { id: 'IMG006', name: '2025-02-20 超声图像', date: '2025-02-20', image: '/original/0044_weidi1_382.jpg' }
+    { id: 'IMG001', name: '2025-10-07 超声图像', date: '2025-10-07', image: getMediaUrl('/original/0044_weidi1_1165.jpg') },
+    { id: 'IMG002', name: '2025-10-07 超声图像', date: '2025-10-07', image: getMediaUrl('/original/0044_weidi1_1166.jpg') },
+    { id: 'IMG003', name: '2025-06-05 超声图像', date: '2025-06-05', image: getMediaUrl('/original/0044_weidi1_379.jpg') },
+    { id: 'IMG004', name: '2025-06-05 超声图像', date: '2025-06-05', image: getMediaUrl('/original/0044_weidi1_380.jpg') },
+    { id: 'IMG005', name: '2025-02-20 超声图像', date: '2025-02-20', image: getMediaUrl('/original/0044_weidi1_381.jpg') },
+    { id: 'IMG006', name: '2025-02-20 超声图像', date: '2025-02-20', image: getMediaUrl('/original/0044_weidi1_382.jpg') }
   ]);
 
   // 显示/隐藏详细列表的标志

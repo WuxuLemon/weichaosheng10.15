@@ -3,6 +3,7 @@
   import { reactive, ref, onMounted } from 'vue';
   import DoctorHeader from '../../components/DoctorHeader.vue';
   import DoctorSidebar from '../../components/DoctorSidebar.vue';
+  import { getMediaUrl } from '../../utils/media.js';
 
   const props = defineProps({});
 
@@ -30,36 +31,36 @@
 
   // 查询结果数据（对接original文件夹真实图片）
   const searchResults = ref([
-    { id: '0044_weidi1_1165', image: '/original/0044_weidi1_1165.jpg' },
-    { id: '0044_weidi1_1166', image: '/original/0044_weidi1_1166.jpg' },
-    { id: '0044_weidi1_379', image: '/original/0044_weidi1_379.jpg' },
-    { id: '0044_weidi1_380', image: '/original/0044_weidi1_380.jpg' },
-    { id: '0044_weidi1_381', image: '/original/0044_weidi1_381.jpg' },
-    { id: '0044_weidi1_382', image: '/original/0044_weidi1_382.jpg' },
-    { id: '0044_weidi2_379', image: '/original/0044_weidi2_379.jpg' },
-    { id: '0044_weidi2_380', image: '/original/0044_weidi2_380.jpg' },
-    { id: '0044_weidi2_381', image: '/original/0044_weidi2_381.jpg' },
-    { id: '0044_weidi2_382', image: '/original/0044_weidi2_382.jpg' },
-    { id: '0044_weidi2_383', image: '/original/0044_weidi2_383.jpg' },
-    { id: '0044_weidi2_384', image: '/original/0044_weidi2_384.jpg' },
-    { id: '0044_weidi2_385', image: '/original/0044_weidi2_385.jpg' },
-    { id: '0044_weidi2_386', image: '/original/0044_weidi2_386.jpg' },
-    { id: '0044_weidi2_387', image: '/original/0044_weidi2_387.jpg' },
-    { id: '0044_weidi2_388', image: '/original/0044_weidi2_388.jpg' },
-    { id: '0044_weidou_2049', image: '/original/0044_weidou_2049.jpg' },
-    { id: '0044_weidou_2052', image: '/original/0044_weidou_2052.jpg' },
-    { id: '0044_weidou_2077', image: '/original/0044_weidou_2077.jpg' },
-    { id: '0044_weidou_2105', image: '/original/0044_weidou_2105.jpg' },
-    { id: '0044_weidou_2141', image: '/original/0044_weidou_2141.jpg' },
-    { id: '0044_weidou_248', image: '/original/0044_weidou_248.jpg' },
-    { id: '0044_weidou_283', image: '/original/0044_weidou_283.jpg' },
-    { id: '0044_weidou_304', image: '/original/0044_weidou_304.jpg' },
-    { id: '0044_weidou_305', image: '/original/0044_weidou_305.jpg' },
-    { id: '0044_weidou_352', image: '/original/0044_weidou_352.jpg' },
-    { id: '0044_weidou_667', image: '/original/0044_weidou_667.jpg' },
-    { id: '0044_weiti1_480', image: '/original/0044_weiti1_480.jpg' },
-    { id: '0044_weiti1_481', image: '/original/0044_weiti1_481.jpg' },
-    { id: '0044_weiti1_482', image: '/original/0044_weiti1_482.jpg' }
+    { id: '0044_weidi1_1165', image: getMediaUrl('/original/0044_weidi1_1165.jpg') },
+    { id: '0044_weidi1_1166', image: getMediaUrl('/original/0044_weidi1_1166.jpg') },
+    { id: '0044_weidi1_379', image: getMediaUrl('/original/0044_weidi1_379.jpg') },
+    { id: '0044_weidi1_380', image: getMediaUrl('/original/0044_weidi1_380.jpg') },
+    { id: '0044_weidi1_381', image: getMediaUrl('/original/0044_weidi1_381.jpg') },
+    { id: '0044_weidi1_382', image: getMediaUrl('/original/0044_weidi1_382.jpg') },
+    { id: '0044_weidi2_379', image: getMediaUrl('/original/0044_weidi2_379.jpg') },
+    { id: '0044_weidi2_380', image: getMediaUrl('/original/0044_weidi2_380.jpg') },
+    { id: '0044_weidi2_381', image: getMediaUrl('/original/0044_weidi2_381.jpg') },
+    { id: '0044_weidi2_382', image: getMediaUrl('/original/0044_weidi2_382.jpg') },
+    { id: '0044_weidi2_383', image: getMediaUrl('/original/0044_weidi2_383.jpg') },
+    { id: '0044_weidi2_384', image: getMediaUrl('/original/0044_weidi2_384.jpg') },
+    { id: '0044_weidi2_385', image: getMediaUrl('/original/0044_weidi2_385.jpg') },
+    { id: '0044_weidi2_386', image: getMediaUrl('/original/0044_weidi2_386.jpg') },
+    { id: '0044_weidi2_387', image: getMediaUrl('/original/0044_weidi2_387.jpg') },
+    { id: '0044_weidi2_388', image: getMediaUrl('/original/0044_weidi2_388.jpg') },
+    { id: '0044_weidou_2049', image: getMediaUrl('/original/0044_weidou_2049.jpg') },
+    { id: '0044_weidou_2052', image: getMediaUrl('/original/0044_weidou_2052.jpg') },
+    { id: '0044_weidou_2077', image: getMediaUrl('/original/0044_weidou_2077.jpg') },
+    { id: '0044_weidou_2105', image: getMediaUrl('/original/0044_weidou_2105.jpg') },
+    { id: '0044_weidou_2141', image: getMediaUrl('/original/0044_weidou_2141.jpg') },
+    { id: '0044_weidou_248', image: getMediaUrl('/original/0044_weidou_248.jpg') },
+    { id: '0044_weidou_283', image: getMediaUrl('/original/0044_weidou_283.jpg') },
+    { id: '0044_weidou_304', image: getMediaUrl('/original/0044_weidou_304.jpg') },
+    { id: '0044_weidou_305', image: getMediaUrl('/original/0044_weidou_305.jpg') },
+    { id: '0044_weidou_352', image: getMediaUrl('/original/0044_weidou_352.jpg') },
+    { id: '0044_weidou_667', image: getMediaUrl('/original/0044_weidou_667.jpg') },
+    { id: '0044_weiti1_480', image: getMediaUrl('/original/0044_weiti1_480.jpg') },
+    { id: '0044_weiti1_481', image: getMediaUrl('/original/0044_weiti1_481.jpg') },
+    { id: '0044_weiti1_482', image: getMediaUrl('/original/0044_weiti1_482.jpg') }
   ]);
 
   // 查询功能
