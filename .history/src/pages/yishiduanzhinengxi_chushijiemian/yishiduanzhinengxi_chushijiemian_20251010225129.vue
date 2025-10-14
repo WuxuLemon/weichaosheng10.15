@@ -1,0 +1,599 @@
+<script setup>
+  import { useRouter } from 'vue-router';
+  import { reactive, ref } from 'vue';
+  import DoctorHeader from '../../components/DoctorHeader.vue';
+  import DoctorSidebar from '../../components/DoctorSidebar.vue';
+
+  const props = defineProps({});
+
+  const router = useRouter();
+
+  // 当前播放的视频
+  const currentVideo = ref('黄仁丰_250816015.mp4');
+  const videoPath = ref('/video/ceshi.mp4');
+  const isPlaying = ref(false);
+  const isAnalyzing = ref(false);
+
+  // 视频列表
+  const videoList = ref([
+    { name: '黄仁丰_250816015.mp4', id: '250619162' },
+    { name: '郑廷洲_250705123.mp4', id: '250705047' },
+    { name: '马万华_250605108.mp4', id: '250605040' },
+    { name: '范泽莉_250531242.mp4', id: '240916100' },
+    { name: '黄益鹏_250527033.mp4', id: '240910084' }
+  ]);
+
+  // 播放视频
+  const playVideo = (video) => {
+    currentVideo.value = video.name;
+    isPlaying.value = true;
+  };
+
+  // AI诊断
+  const startAIAnalysis = () => {
+    isAnalyzing.value = true;
+    // 模拟AI分析，3秒后跳转到分析结果页面
+    setTimeout(() => {
+      isAnalyzing.value = false;
+      aiDiagnosisCompleted.value = true;  // 标记AI诊断已完成
+      router.push('/yishiduanzhinengnxi_fenxijiemian');
+    }, 3000);
+  };
+
+  // AI诊断完成标志
+  const aiDiagnosisCompleted = ref(false);
+  
+  // 当前视频索引
+  const currentVideoIndex = ref(0);
+  
+  // 视频元素引用
+  const videoRef = ref(null);
+
+  // 生成报告
+  const generateReport = () => {
+    if (!aiDiagnosisCompleted.value) {
+      alert('请先完成"AI诊断"');
+      return;
+    }
+    router.push('/yishiduan_jianchabaogaodan');
+  };
+
+  // 播放/暂停视频
+  const togglePlayPause = () => {
+    const video = document.querySelector('.video-player');
+    if (video) {
+      if (video.paused) {
+        video.play();
+        isPlaying.value = true;
+      } else {
+        video.pause();
+        isPlaying.value = false;
+      }
+    }
+  };
+
+  // 下一个视频
+  const nextVideo = () => {
+    currentVideoIndex.value = (currentVideoIndex.value + 1) % videoList.value.length;
+    const nextVid = videoList.value[currentVideoIndex.value];
+    currentVideo.value = nextVid.name;
+    // 更新视频源并播放
+    const video = document.querySelector('.video-player');
+    if (video) {
+      video.load();
+      video.play();
+      isPlaying.value = true;
+    }
+  };
+
+  // 跳转到影像管理界面（有数据）
+  const goToImageManagement = () => {
+    router.push('/yishiduanyingxiagguanli_youshuju');
+  };
+</script>
+
+<template>
+  <div class="flex-col justify-start relative page">
+    <div class="flex-col justify-start relative group">
+      <DoctorHeader 
+        username="郑医生"
+        dropdown-icon="/cd4720f5298445e1cdf13547ce10d398.png"
+      />
+      <DoctorSidebar 
+        :icons="{
+          imageManagement: '/4cc0b44883df90d8799c16e182ae1348.png',
+          aiAnalysis: '/20af53ec6a814e7dad50b4004715362a.png',
+          dataLibrary: '/87af3249c4b9bb3b8b4791d30f1fbecc.png',
+          settings: '/237e454c307d63e1596a7fe0e2eb4a59.png'
+        }"
+      />
+      <img
+        class="image pos_2"
+        src="/404328c3067e67794ebad8ca57c1c196.png"
+      />
+      <span class="text pos_3">智能分析界面</span>
+    </div>
+    <span class="text_3 pos_4">胃部超声影像原始视频播放界面</span>
+    <div class="flex-col section_4 pos_5">
+      <div class="flex-row">
+        <div class="flex-col flex-1 group_4">
+          <!-- 视频播放区域 -->
+          <div class="group_5 video-container">
+            <video 
+              v-if="videoPath" 
+              :src="videoPath" 
+              controls 
+              class="video-player"
+              @play="isPlaying = true"
+              @pause="isPlaying = false"
+            >
+              您的浏览器不支持视频播放
+            </video>
+            <div v-if="isAnalyzing" class="analyzing-overlay">
+              <div class="analyzing-text">AI智能分析中...</div>
+              <div class="spinner"></div>
+            </div>
+          </div>
+          <!-- 控制按钮区域 -->
+          <div class="flex-col justify-start relative group_8 mt-17">
+            <div class="flex-col justify-start items-start section_8">
+              <div class="shrink-0 section_9 ai-button" @click="startAIAnalysis" style="cursor: pointer;">
+                <span class="button-text">{{ isAnalyzing ? 'AI分析中...' : 'AI诊断' }}</span>
+              </div>
+            </div>
+            <div class="section_7 pos_11"></div>
+          </div>
+        </div>
+        <div class="ml-26 flex-col shrink-0 self-start group_2">
+          <div class="flex-row group_3">
+            <div class="relative section_5 ai-diagnosis-btn" @click="startAIAnalysis" style="cursor: pointer;" title="AI诊断">
+              <span class="ai-diagnosis-text">AI诊断</span>
+            </div>
+            <div class="flex-col justify-start items-center relative text-wrapper ml-29" @click="generateReport" style="cursor: pointer;">
+              <span class="text_4">报告生成</span>
+            </div>
+            <div class="relative section_5 ml-29 ai-diagnosis-btn" @click="goToImageManagement" style="cursor: pointer;" title="影像管理">
+              <span class="ai-diagnosis-text">影像管理</span>
+            </div>
+          </div>
+          <div class="flex-col section_6">
+            <span class="self-start font text_5">视频列表</span>
+            <div class="mt-4 flex-col self-stretch group_6">
+              <div 
+                v-for="(video, index) in videoList" 
+                :key="video.id"
+                class="flex-col justify-start relative video-item"
+                @click="playVideo(video)"
+                :class="{ 'active-video': currentVideo === video.name }"
+                style="cursor: pointer;"
+              >
+                <div class="group_7"></div>
+                <span class="font_2 text_6" :class="`pos_${index + 6}`">{{ video.name }}</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="flex-row items-center group_9 mt-21">
+        <div class="flex-row">
+          <span class="self-start font text_7">视频：{{ currentVideo }}</span>
+          <img
+            class="ml-60 shrink-0 self-center image_7"
+            src="/c3835dc09eb692971840521ebbb6f4ee.png"
+            @click="nextVideo"
+            style="cursor: pointer;"
+            title="下一个视频"
+          />
+        </div>
+        <img
+          class="image_8 ml-77"
+          src="/26fa9ff9d0211877866147bd4406348b.png"
+          @click="togglePlayPause"
+          style="cursor: pointer;"
+          :title="isPlaying ? '暂停' : '播放'"
+        />
+      </div>
+    </div>
+  </div>
+</template>
+
+<style scoped lang="css">
+  .mt-17 {
+    margin-top: 1.06rem;
+  }
+  .ml-29 {
+    margin-left: 1.81rem;
+  }
+  .mt-21 {
+    margin-top: 1.31rem;
+  }
+  .ml-77 {
+    margin-left: 4.81rem;
+  }
+  .page {
+    background-color: #e5e5e559;
+    width: 100%;
+    overflow-y: auto;
+    overflow-x: hidden;
+    height: 100%;
+  }
+  .group {
+    padding-bottom: 44.94rem;
+  }
+  .section {
+    padding: 1.44rem 1.5rem 1.13rem;
+    background-color: #ffffff;
+    box-shadow: 0rem 0.13rem 0.25rem #00000040;
+  }
+  .image_2 {
+    width: 1.88rem;
+    height: 2.13rem;
+  }
+  .section_3 {
+    padding: 0.5rem 0.75rem;
+    filter: drop-shadow(0rem 0.13rem 0.13rem #00000040);
+    background-color: #ffffff;
+    border-radius: 0.31rem;
+    height: 2.5rem;
+    border-left: solid 0.063rem #000000;
+    border-right: solid 0.063rem #000000;
+    border-top: solid 0.063rem #000000;
+    border-bottom: solid 0.063rem #000000;
+  }
+  .text_2 {
+    color: #000000;
+    font-size: 1.5rem;
+    font-family: SourceHanSansCN;
+    line-height: 1.38rem;
+  }
+  .image_3 {
+    margin-right: 0.13rem;
+    width: 1.13rem;
+    height: 1.06rem;
+  }
+  .section_2 {
+    padding: 6.25rem 0 2.19rem;
+    background-color: #568d8b;
+  }
+  .pos {
+    position: absolute;
+    left: 0;
+    top: 0;
+  }
+  .image_4 {
+    opacity: 0.8;
+    filter: drop-shadow(0rem 0.13rem 0.13rem #00000040);
+    width: 5.31rem;
+    height: 5.31rem;
+  }
+  .image_5 {
+    margin-top: 1.75rem;
+    width: 2.75rem;
+    height: 1.81rem;
+  }
+  .image_6 {
+    margin-top: 3.13rem;
+    width: 2.5rem;
+    height: 2.63rem;
+  }
+  .image_9 {
+    margin-top: 24.44rem;
+    width: 2.5rem;
+    height: 2.5rem;
+  }
+  .image {
+    filter: drop-shadow(0rem 0.25rem 0.19rem #00000040);
+    width: 11rem;
+    height: 11rem;
+  }
+  .pos_2 {
+    position: absolute;
+    left: -2.5rem;
+    top: -2.5rem;
+  }
+  .text {
+    color: #000000;
+    font-size: 1.88rem;
+    font-family: SourceHanSansCN;
+    font-weight: 700;
+    line-height: 1.78rem;
+  }
+  .pos_3 {
+    position: absolute;
+    left: 6.87rem;
+    top: 1.88rem;
+  }
+  .text_3 {
+    color: #000000;
+    font-size: 1.38rem;
+    font-family: SourceHanSansCN;
+    font-weight: 700;
+    line-height: 1.31rem;
+  }
+  .pos_4 {
+    position: absolute;
+    left: 6.97rem;
+    top: 6.67rem;
+  }
+  .section_4 {
+    padding: 1.69rem 2.13rem 1.38rem;
+    background-color: #ffffff;
+    border-radius: 0.63rem;
+    box-shadow: 0rem 0.13rem 0.25rem #00000040;
+    width: 81.69rem;
+  }
+  .pos_5 {
+    position: absolute;
+    right: 1.5rem;
+    top: 8.94rem;
+  }
+  .group_4 {
+    margin-top: 0.13rem;
+  }
+  .group_5 {
+    border-radius: 0.44rem;
+    height: 29.69rem;
+    border-left: solid 0.19rem #383838;
+    border-right: solid 0.19rem #383838;
+    border-top: solid 0.19rem #383838;
+    border-bottom: solid 0.19rem #383838;
+  }
+  .group_8 {
+    padding: 0.25rem 0;
+  }
+  .section_8 {
+    background-color: #ffffff;
+    border-radius: 0.31rem;
+    width: 44rem;
+    border-left: solid 0.13rem #000000;
+    border-right: solid 0.13rem #000000;
+    border-top: solid 0.13rem #000000;
+    border-bottom: solid 0.13rem #000000;
+  }
+  .section_9 {
+    background-color: #35bdb4;
+    border-radius: 0.31rem;
+    width: 1.07rem;
+    height: 0.23rem;
+  }
+  .section_7 {
+    background-color: #00baad;
+    border-radius: 50%;
+    height: 0.83rem;
+    border-left: solid 0.13rem #000000;
+    border-right: solid 0.13rem #000000;
+    border-top: solid 0.13rem #000000;
+    border-bottom: solid 0.13rem #000000;
+  }
+  .pos_11 {
+    position: absolute;
+    left: 0.26rem;
+    right: 42.84rem;
+    top: 0;
+  }
+  .group_2 {
+    width: 31.63rem;
+  }
+  .group_3 {
+    padding-bottom: 1.5rem;
+  }
+  .section_5 {
+    background-color: #4bbdb5;
+    border-radius: 1.88rem;
+    box-shadow: 0rem 0.13rem 0.25rem #00000040;
+    width: 9.28rem;
+    height: 3.63rem;
+  }
+  .text-wrapper {
+    padding: 1.13rem 0 1rem;
+    background-color: #4bbdb5;
+    border-radius: 1.88rem;
+    box-shadow: 0rem 0.13rem 0.25rem #00000040;
+    width: 9.28rem;
+    height: 3.63rem;
+  }
+  .text_4 {
+    color: #ffffff;
+    font-size: 1.5rem;
+    font-family: SourceHanSansCN;
+    font-weight: 700;
+    line-height: 1.44rem;
+  }
+  .section_6 {
+    padding-top: 0.5rem;
+    background-color: #ffffff;
+    border-radius: 0.31rem;
+    box-shadow: 0rem 0.13rem 0.25rem #00000040;
+    border-left: solid 0.13rem #000000;
+    border-right: solid 0.13rem #000000;
+    border-top: solid 0.13rem #000000;
+    border-bottom: solid 0.13rem #000000;
+  }
+  .font {
+    font-size: 1.25rem;
+    font-family: SourceHanSansCN;
+    color: #000000;
+  }
+  .text_5 {
+    margin-left: 0.63rem;
+    line-height: 1.16rem;
+  }
+  .group_6 {
+    border-radius: 0rem 0rem 0.31rem 0.31rem;
+    border-left: solid 0.13rem #000000;
+    border-right: solid 0.13rem #000000;
+    border-top: solid 0.13rem #000000;
+    border-bottom: solid 0.13rem #000000;
+  }
+  .group_7 {
+    opacity: 0.5;
+    height: 4.69rem;
+    border-left: solid 0.063rem #000000;
+    border-right: solid 0.063rem #000000;
+    border-top: solid 0.063rem #000000;
+    border-bottom: solid 0.063rem #000000;
+  }
+  .font_2 {
+    font-size: 1.13rem;
+    font-family: SourceHanSansCN;
+    line-height: 1.38rem;
+    color: #000000;
+  }
+  .text_6 {
+    width: 20rem;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  .pos_6 {
+    position: absolute;
+    left: 2.37rem;
+    top: 1.79rem;
+  }
+  .pos_7 {
+    position: absolute;
+    left: 2.35rem;
+    top: 1.93rem;
+  }
+  .pos_8 {
+    position: absolute;
+    left: 2.37rem;
+    top: 1.79rem;
+  }
+  .pos_9 {
+    position: absolute;
+    left: 2.37rem;
+    top: 1.73rem;
+  }
+  .pos_10 {
+    position: absolute;
+    left: 2.37rem;
+    top: 1.8rem;
+  }
+  .group_9 {
+    padding: 0 0.5rem;
+  }
+  .text_7 {
+    margin-top: 0.5rem;
+    line-height: 1.5rem;
+  }
+  .image_7 {
+    border-radius: 50%;
+    width: 2.99rem;
+    height: 2.73rem;
+  }
+  .image_8 {
+    width: 1.8rem;
+    height: 2.73rem;
+  }
+
+  /* 视频播放器样式 */
+  .video-container {
+    position: relative;
+    background: #000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .video-player {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+  }
+
+  /* AI分析中遮罩层 */
+  .analyzing-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.7);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    z-index: 10;
+  }
+
+  .analyzing-text {
+    color: #00baad;
+    font-size: 1.8rem;
+    font-weight: 700;
+    margin-bottom: 1.5rem;
+  }
+
+  /* 加载动画 */
+  .spinner {
+    width: 50px;
+    height: 50px;
+    border: 4px solid #f3f3f3;
+    border-top: 4px solid #00baad;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+  }
+
+  @keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+  }
+
+  /* AI按钮样式 */
+  .ai-button {
+    transition: all 0.3s;
+  }
+
+  .ai-button:hover {
+    transform: scale(1.05);
+    box-shadow: 0 0.25rem 0.5rem rgba(0, 186, 173, 0.3);
+  }
+
+  .button-text {
+    color: #fff;
+    font-size: 1.2rem;
+    font-weight: 600;
+  }
+
+  /* AI诊断按钮样式 */
+  .ai-diagnosis-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s;
+  }
+
+  .ai-diagnosis-btn:hover {
+    transform: scale(1.05);
+    box-shadow: 0 0.25rem 0.5rem rgba(0, 186, 173, 0.3);
+  }
+
+  .ai-diagnosis-text {
+    color: #ffffff;
+    font-size: 1.5rem;
+    font-family: SourceHanSansCN;
+    font-weight: 700;
+    line-height: 1.44rem;
+    text-align: center;
+  }
+
+  /* 视频列表项样式 */
+  .video-item {
+    transition: background-color 0.2s;
+    padding: 0.5rem;
+    border-radius: 0.3rem;
+  }
+
+  .video-item:hover {
+    background-color: rgba(0, 186, 173, 0.1);
+  }
+
+  .video-item.active-video {
+    background-color: rgba(0, 186, 173, 0.2);
+  }
+
+  .video-item.active-video .font_2 {
+    color: #00baad !important;
+    font-weight: 700;
+  }
+</style>
