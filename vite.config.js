@@ -13,7 +13,6 @@ export default defineConfig({
     }
   },
   build: {
-    target: 'esnext', // 支持顶层 await
-    minify: 'terser', // 使用 terser 进行压缩
+    target: 'esnext', // 支持现代 JavaScript 特性和静态导入
   }
 })
