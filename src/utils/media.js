@@ -1,22 +1,15 @@
 // 媒体文件URL管理工具
 
+// 静态导入 Blob URL 映射文件
+// Vite 会在构建时将 JSON 文件内容内联，避免异步加载
+import blobUrlMappingData from '../../blob-url-mapping.json';
+
 // 从环境变量获取Blob基础URL
 // 生产环境使用Vercel Blob URL，开发环境使用本地路径
 const isProduction = import.meta.env.PROD;
 
 // Blob URL映射 - 上传后会自动生成
-let blobUrlMapping = null;
-
-// 尝试加载 Blob URL 映射
-try {
-  if (isProduction) {
-    // 在生产环境中，这个文件应该被导入
-    const mapping = await import('../../blob-url-mapping.json');
-    blobUrlMapping = mapping.default;
-  }
-} catch (error) {
-  console.warn('未找到 blob-url-mapping.json，使用本地路径');
-}
+const blobUrlMapping = blobUrlMappingData || null;
 
 /**
  * 获取媒体文件的完整URL

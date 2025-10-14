@@ -11,5 +11,9 @@ export default defineConfig({
     alias: {
       '@': fileURLToPath(new URL('./src', import.meta.url))
     }
+  },
+  build: {
+    target: 'esnext', // 支持顶层 await
+    minify: 'terser', // 使用 terser 进行压缩
   }
 })
